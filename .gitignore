@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Project specific excludes
+*.onnx
+/utils.py
+/hyperparams.cfg
+/docker_run.py
