@@ -3,6 +3,34 @@ naive_k2onnx
 The goal of naive_k2onnx is to provide a simple tool to convert our Keras models to ONNX. It implements only a small subset of available Keras layers. It does not aim to be a general-purpose Keras to ONNX converter but to cater to specific use cases.
 
 
+Example
+-------
+```python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import onnx
+from tensorflow.keras.models import load_model
+from naive_k2onnx import Converter
+
+
+# load keras model
+keras_model = load_model(args.m)
+
+# instantiate the converter class
+converter = Converter()
+
+# add custom converters if necessary
+# converter.add_converter(tf.keras.layer, my.custom.converter)
+
+# run the conversion process
+onnx_model = converter.convert(keras_model)
+
+# save the resulting onnx model
+onnx.save(onnx_model, 'my_onnx_model.onnx')
+```
+
+
 Why yet another Keras to ONNX converter?
 ----------------------------------------
 At the time of conception, there were no available Keras to ONNX converters, which sufficiently served my needs. I.e. [keras2onnx] is excellent, however, we use a lot of custom layers, which lead to a high amount of unnecessary transpose operations in the ONNX compute graph (obviously bad for performance). I fully expect (and hope) that this piece of software will be rendered redundant shortly, as the keras2onnx optimizer gets smarter.
