@@ -6,7 +6,7 @@ from onnx import TensorProto
 from onnx.helper import make_graph, make_model
 from onnx.helper import make_tensor_value_info
 import tensorflow as tf
-import tensorflow.python.keras.layers as tf_layers
+import tensorflow.keras.layers as tf_layers
 from .layer_converter import Input, Conv, BatchNormalization, PReLU, AveragePooling, Concatenate
 from .utils import tf_name2canonical, to_onnx_shapes
 
@@ -15,12 +15,12 @@ class Converter(object):
     def __init__(self):
         self.converters = {}
 
-        self.add_converter(tf.python.keras.engine.input_layer.InputLayer, Input)
-        self.add_converter(tf_layers.convolutional.Conv3D, Conv)
-        self.add_converter(tf_layers.normalization_v2.BatchNormalization, BatchNormalization)
-        self.add_converter(tf_layers.advanced_activations.PReLU, PReLU)
-        self.add_converter(tf_layers.pooling.AveragePooling3D, AveragePooling)
-        self.add_converter(tf_layers.merge.Concatenate, Concatenate)
+        self.add_converter(tf_layers.InputLayer, Input)
+        self.add_converter(tf_layers.Conv3D, Conv)
+        self.add_converter(tf_layers.BatchNormalization, BatchNormalization)
+        self.add_converter(tf_layers.PReLU, PReLU)
+        self.add_converter(tf_layers.AveragePooling3D, AveragePooling)
+        self.add_converter(tf_layers.Concatenate, Concatenate)
 
     
     def convert(self, keras_model, opset=11, model_checker=True):
