@@ -61,7 +61,7 @@ class Layer(object):
         return f'{self.layer.name}/{name}'
 
 
-from .basic import Input
+from .basic import NoOp, Input
 from .conv import Conv
 from .batchnorm import BatchNormalization
 from .activation import PReLU
